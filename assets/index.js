@@ -13,14 +13,12 @@ const playGame = (playerSelection, computerSelection) => {
 
 	// 4. Display the running score, and announce a winner of the game once one player reaches 5 points.
 	if (computersScore === '5') {
-		$('#computer-score').html('');
-		$('#player-score').html('');
 		alert('Game Over! Computer Won!');
+		location.reload(true);
 	}
 	if (playersScore === '5') {
-		$('#computer-score').html('');
-		$('#player-score').html('');
 		alert('Game Over! You Won!');
+		location.reload(true);
 	}
 
 	if (playerSelection.toLowerCase() === computerSelection) {
@@ -70,18 +68,18 @@ const playGame = (playerSelection, computerSelection) => {
 
 $('#rock').click(function (e) {
 	e.preventDefault();
-	const playerSelection = $(this).html();
+	const playerSelection = $(this).attr('id');
 	playGame(playerSelection, getComputerChoice());
 });
 
 $('#paper').click(function (e) {
 	e.preventDefault();
-	const playerSelection = $(this).html();
+	const playerSelection = $(this).attr('id');
 	playGame(playerSelection, getComputerChoice());
 });
 
 $('#scissors').click(function (e) {
 	e.preventDefault();
-	const playerSelection = $(this).html();
+	const playerSelection = $(this).attr('id');
 	playGame(playerSelection, getComputerChoice());
 });
