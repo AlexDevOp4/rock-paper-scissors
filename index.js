@@ -7,44 +7,81 @@ const getComputerChoice = () => {
 	return randomChoice;
 };
 
-getComputerChoice();
-
 const playGame = (playerSelection, computerSelection) => {
-	if (playerSelection === computerSelection) {
-		return 'Draw!';
+	let computersScore = $('#computer-score').html();
+	let playersScore = $('#player-score').html();
+
+	// 4. Display the running score, and announce a winner of the game once one player reaches 5 points.
+	if (computersScore === '5') {
+		$('#computer-score').html('');
+		$('#player-score').html('');
+		alert('Game Over! Computer Won!');
+	}
+	if (playersScore === '5') {
+		$('#computer-score').html('');
+		$('#player-score').html('');
+		alert('Game Over! You Won!');
 	}
 
-	if (playerSelection === 'rock' && computerSelection === 'paper') {
-		return 'You lose!';
+	if (playerSelection.toLowerCase() === computerSelection) {
+		return $('#results').html('Draw!');
 	}
 
-	if (playerSelection === 'paper' && computerSelection === 'scissors') {
-		return 'You lose!';
-	}
-
-	if (playerSelection === 'scissors' && computerSelection === 'rock') {
-		return 'You lose!';
-	}
-
-	return 'You win!';
-};
-
-const game = () => {
-	let playerSelection;
-
-	while (
-		playerSelection !== 'rock' &&
-		playerSelection !== 'paper' &&
-		playerSelection !== 'scissors'
+	if (
+		playerSelection.toLowerCase() === 'rock' &&
+		computerSelection === 'paper'
 	) {
-		playerSelection = prompt('Pick Rock, Paper, or Scissors').toLowerCase();
+		$('#computer-score').html(function (i, val) {
+			return +val + 1;
+		});
+		return $('#results').html('You lose!');
 	}
 
-	for (let i = 0; i < 5; i++) {
-		playerSelection = prompt('Pick Rock, Paper, or Scissors').toLowerCase();
-		const computerSelection = getComputerChoice();
-		console.log(playGame(playerSelection.toLowerCase(), computerSelection));
+	if (
+		playerSelection.toLowerCase() === 'paper' &&
+		computerSelection === 'scissors'
+	) {
+		$('#computer-score').html(function (i, val) {
+			return +val + 1;
+		});
+		return $('#results').html('You lose!');
 	}
+
+	if (
+		playerSelection.toLowerCase() === 'scissors' &&
+		computerSelection === 'rock'
+	) {
+		$('#computer-score').html(function (i, val) {
+			return +val + 1;
+		});
+		return $('#results').html('You lose!');
+	}
+
+	$('#player-score').html(function (i, val) {
+		return +val + 1;
+	});
+
+	return $('#results').html('You Win!');
 };
 
-game();
+// 2. Create three buttons, one for each selection. Add an event listener to the buttons that call your playRound function with the correct playerSelection every time a button is clicked. (you can keep the console.logs for this step)
+
+// 3. Add a div for displaying results and change all of your console.logs into DOM methods
+
+$('#rock').click(function (e) {
+	e.preventDefault();
+	const playerSelection = $(this).html();
+	playGame(playerSelection, getComputerChoice());
+});
+
+$('#paper').click(function (e) {
+	e.preventDefault();
+	const playerSelection = $(this).html();
+	playGame(playerSelection, getComputerChoice());
+});
+
+$('#scissors').click(function (e) {
+	e.preventDefault();
+	const playerSelection = $(this).html();
+	playGame(playerSelection, getComputerChoice());
+});
